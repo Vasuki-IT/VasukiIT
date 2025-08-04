@@ -30,8 +30,29 @@ jobs:
         with:
           static_site_generator: next
 
+      - name: Verify project structure 🔍
+        run: |
+          echo "📂 Current directory contents:"
+          ls -la
+          echo "📂 vasuki-it-homepage directory contents:"
+          ls -la vasuki-it-homepage/
+          echo "📋 package.json contents:"
+          cat vasuki-it-homepage/package.json
+
       - name: Build with Next.js 🏗️
-        run: npx next build
+        run: |
+          echo "📂 Changing to vasuki-it-homepage directory"
+          cd vasuki-it-homepage
+          echo "🏗️ Starting Next.js build"
+          npx next build
+          echo "✅ Build completed successfully"
+
+      - name: Verify build output 📊
+        run: |
+          echo "📂 Checking build output directory:"
+          ls -la vasuki-it-homepage/out/
+          echo "📊 Build output size:"
+          du -sh vasuki-it-homepage/out/
 
       - name: Upload artifact 📡
         uses: actions/upload-pages-artifact@v3
