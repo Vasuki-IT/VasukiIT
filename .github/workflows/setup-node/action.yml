@@ -42,8 +42,6 @@ runs:
       run: |
         if [ "${{ steps.cache_dependencies.outputs.cache-hit }}" == "true" ]; then
           echo "✅ Cache hit! Dependencies restored from cache"
-          echo "Checking node_modules directory:"
-          ls -la vasuki-it-homepage/node_modules/ | head -10
         else
           echo "❌ Cache miss. Will install dependencies"
         fi
@@ -57,12 +55,3 @@ runs:
         echo "📦 Installing dependencies with npm ci"
         npm ci
         echo "✅ Dependencies installed successfully"
-
-    - name: Verify installation 🔍
-      shell: bash
-      run: |
-        cd vasuki-it-homepage
-        echo "📋 Installed packages summary:"
-        npm list --depth=0 | head -20
-        echo "📊 node_modules size:"
-        du -sh node_modules/ 2>/dev/null || echo "Could not calculate size"
